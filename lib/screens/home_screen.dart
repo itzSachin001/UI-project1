@@ -12,10 +12,17 @@ class _HomeScreenState extends State<HomeScreen> {
   var index = 0;
 
   final List<Item> _item = [
+    Item(id: DateTime.now().toString(),image: 'assets/images/likes.jpg', title: 'Likes',subtitle: '',numberOfMessage: 0),
     Item(id: DateTime.now().toString(),image: 'assets/images/person1.jpg', title: 'Sana',subtitle: 'Hii!',numberOfMessage: 1),
     Item(id: DateTime.now().toString(),image: 'assets/images/person2.jpg', title: 'Sara', isVerified: true,subtitle: 'Hii!',numberOfMessage: 0),
     Item(id: DateTime.now().toString(),image: 'assets/images/person3.jpg', title: 'Shyam', isVerified: true,subtitle: 'Typing...',numberOfMessage: 11),
     Item(id: DateTime.now().toString(),image: 'assets/images/person4.png', title: 'Ram',subtitle: 'Typing...',numberOfMessage: 3),
+  ];
+
+  final List<Item> _item2 = [
+    Item(id: DateTime.now().toString(),image: 'assets/images/person1.jpg', title: 'Sana',subtitle: 'Hii!',numberOfMessage: 1),
+    Item(id: DateTime.now().toString(),image: 'assets/images/person6.jpg', title: 'Sara', isVerified: true,subtitle: 'Hii!',numberOfMessage: 0),
+    Item(id: DateTime.now().toString(),image: 'assets/images/person7.jpg', title: 'Shyam', isVerified: true,subtitle: 'Typing...',numberOfMessage: 11),
   ];
 
 
@@ -65,43 +72,58 @@ class _HomeScreenState extends State<HomeScreen> {
                           prefixIcon: const Icon(Icons.search),
                           labelText: 'Search',
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30)
+                            borderRadius: BorderRadius.circular(30),
+
                           )
                         ),
                       ),
                     ),
                     Container(
                       height: 320,
-                      margin: const EdgeInsets.only(top: 50),
+                      margin: const EdgeInsets.only(top: 40,),
                       child: ListView.builder(
-                        itemBuilder: (ctx,i) => ListTile(
-                          leading: CircleAvatar(
-                            backgroundImage: AssetImage(_item[i].image),
-                            radius: 30,
-                          ),
-                          title: Row(
+                        itemBuilder: (ctx,i) => Column(
                             children: [
-                              Text(_item[i].title,style: const TextStyle(fontSize: 20,fontFamily: 'Name'),),
-                              _item[i].isVerified ? const Icon(Icons.verified,color: Colors.blue,) : const Text('')
+                              ListTile(
+                                leading: CircleAvatar(
+                                  backgroundImage: AssetImage(_item2[i].image),
+                                  radius: 30,
+                                ),
+                                title: Row(
+                                  children: [
+                                    Text(_item2[i].title, style: const TextStyle(
+                                        fontSize: 20, fontFamily: 'Name'),),
+                                    _item2[i].isVerified
+                                        ? const Icon(
+                                      Icons.verified, color: Colors.blue,)
+                                        : const Text('')
+                                  ],
+                                ),
+                                subtitle: Text(_item2[i].subtitle),
+                                trailing: Column(
+                                  mainAxisAlignment: MainAxisAlignment
+                                      .spaceAround,
+                                  children: [
+                                    const Text('13:10'),
+                                    _item2[i].numberOfMessage > 0 ? CircleAvatar(
+                                      radius: 10,
+                                      child: FittedBox(
+                                          child: Padding(
+                                              padding: const EdgeInsets.all(3),
+                                              child: _item2[i].numberOfMessage > 9
+                                                  ? const Text('9+')
+                                                  : Text(
+                                                  '${_item2[i].numberOfMessage}')
+                                          )),
+                                    ) : const Text('')
+                                  ],
+                                ),
+                              ),
+                              const Divider()
                             ],
                           ),
-                          subtitle: Text(_item[i].subtitle),
-                          trailing: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              const Text('13:10'),
-                              _item[i].numberOfMessage > 0 ? CircleAvatar(
-                                radius: 10,
-                                child: FittedBox(
-                                    child: Padding(
-                                        padding: const EdgeInsets.all(3),
-                                        child: _item[i].numberOfMessage > 9 ? const Text('9+') : Text('${_item[i].numberOfMessage}')
-                                    )),
-                              ) : const Text('')
-                            ],
-                          ),
-                        ),
-                        itemCount: _item.length,
+                        itemCount: _item2.length,
+
                       ),
                     )
                   ],
